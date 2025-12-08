@@ -1,0 +1,53 @@
+@startuml Filter_Family_Tasks_Sequence
+title Фильтрация семейных задач
+
+actor "Член семьи" as User
+participant "Интерфейс" as UI
+participant "TaskController" as Controller
+participant "TaskService" as Service
+participant "Database" as DB
+
+User -> UI: Устанавливает фильтры\n(статус, категория, приоритет, назначенный)
+activate User
+activate UI
+
+UI -> Controller: GET /api/family/{id}/tasks/filtered?status=completed&category_id=1&priority=high&assignee_id=5
+activate Controller
+
+Controller -> Service: getFilteredFamilyTasks(familyId, filters, userId)
+activate Service
+
+Service -> DB: SELECT с фильтрацией
+activate DB
+note right of DB
+  SELECT t.*, 
+         u.username as assignee_name,
+         c.name as category_name
+  FROM Tasks t
+  LEFT JOIN Users u ON t.assignee_id = u.user_id
+  LEFT JOIN Categories c ON t.category_id = c.category_id
+  WHERE t.family_id = ?
+    AND t.status = ?
+    AND t.category_id = ?
+    AND t.priority = ?
+    AND t.assignee_id = ?
+end note
+DB -> Service: filtered_tasks
+deactivate DB
+
+Service -> Service: formatTasksForFamilyView(filtered_tasks)
+activate Service
+Service -> Controller: TasksListResponse(tasks)
+deactivate Service
+
+Controller -> UI: 200 OK\n{tasks_array}
+deactivate Controller
+
+UI -> UI: Очистить текущий список
+UI -> UI: Отобразить отфильтрованные задачи
+UI -> UI: Показать счетчик найденных задач
+UI -> User: Показать задачи по фильтру
+deactivate UI
+deactivate User
+
+@enduml
