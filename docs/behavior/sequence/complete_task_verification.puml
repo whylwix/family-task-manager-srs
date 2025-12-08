@@ -1,0 +1,71 @@
+@startuml Complete_Task_Verification_Sequence
+title Отметка задачи выполненной с проверкой
+
+actor "Член семьи" as User
+participant "Интерфейс" as UI
+participant "TaskController" as Controller
+participant "TaskService" as Service
+participant "VerificationService" as Verify
+participant "RewardService" as Reward
+participant "Database" as DB
+
+User -> UI: Нажимает "Выполнено" на задаче
+activate User
+activate UI
+
+UI -> Controller: PATCH /api/tasks/{id}/complete\n{proof_photo?}
+activate Controller
+
+Controller -> Service: completeTask(taskId, userId, proofData)
+activate Service
+
+Service -> DB: SELECT * FROM Tasks WHERE task_id = ? AND family_id = ?
+activate DB
+DB -> Service: task_data
+deactivate DB
+
+alt Задача не найдена или пользователь не имеет прав
+  Service -> Controller: ErrorResponse("Нет прав или задача не найдена")
+else Все проверки пройдены
+  Service -> Verify: verifyTaskCompletion(taskId, proofData)
+  activate Verify
+  Verify --> Service: verification_result
+  deactivate Verify
+  
+  alt Требуется подтверждение администратора
+    Service -> Verify: requestAdminApproval(taskId, userId)
+    activate Verify
+    Verify --> Service: approval_requested
+    deactivate Verify
+    
+    Service -> Controller: SuccessResponse("Ожидает подтверждения администратора")
+  else Автоподтверждение
+    Service -> DB: UPDATE Tasks SET status = 'completed', completed_at = NOW() WHERE task_id = ?
+    activate DB
+    DB -> Service: rows_affected
+    deactivate DB
+    
+    Service -> Reward: calculateRewardPoints(taskId, userId)
+    activate Reward
+    Reward -> DB: UPDATE Family_Members SET points = points + ? WHERE user_id = ?
+    activate DB
+    DB -> Reward: updated
+    deactivate DB
+    Reward --> Service: points_awarded
+    deactivate Reward
+    
+    Service -> Controller: SuccessResponse("Задача завершена, начислены баллы")
+  end
+end
+deactivate Service
+
+Controller -> UI: 200 OK или соответствующий статус
+deactivate Controller
+
+UI -> UI: Обновить статус задачи
+UI -> UI: Обновить статистику баллов
+UI -> User: Показать результат
+deactivate UI
+deactivate User
+
+@enduml
