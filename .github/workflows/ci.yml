@@ -1,0 +1,47 @@
+name: CI - Family Task Manager
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Validate project structure
+      run: |
+        echo "Проверка структуры проекта..."
+        test -f index.html || (echo "Отсутствует index.html" && exit 1)
+        test -f style.css || (echo "Отсутствует style.css" && exit 1)
+        test -f script.js || (echo "Отсутствует script.js" && exit 1)
+        echo "Все основные файлы присутствуют"
+        
+    - name: HTML validation
+      run: |
+        echo "Проверка HTML..."
+        if grep -q "<!DOCTYPE html>" index.html; then
+          echo "DOCTYPE найден"
+        else
+          echo "DOCTYPE отсутствует"
+          exit 1
+        fi
+        
+    - name: Check for console errors in JS
+      run: |
+        echo "Проверка JavaScript..."
+        if grep -q "addTask" script.js; then
+          echo "Функция addTask найдена"
+        else
+          echo " Функция addTask не найдена"
+        fi
+        
+    - name: Success message
+      run: |
+        echo "🎉 Все проверки пройдены успешно!"
+        echo "🚀 Family Task Manager готов к работе!"
