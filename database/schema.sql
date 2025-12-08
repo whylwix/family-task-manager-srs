@@ -1,6 +1,3 @@
--- НОРМАЛИЗОВАННАЯ СХЕМА БД ДЛЯ FAMILY TASK MANAGER (SQLite)
--- Соответствует 3NF (Третьей нормальной форме)
-
 -- 1. ТАБЛИЦА СЕМЕЙ
 CREATE TABLE Families (
     family_id INTEGER PRIMARY KEY AUTOINCREMENT,
