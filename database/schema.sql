@@ -2,7 +2,7 @@
 -- 1. ТАБЛИЦА СЕМЕЙ
 CREATE TABLE Families (
     family_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    family_name TEXT NOT NULL,
+    family_name TEXT NOT NULL, 
     family_code TEXT UNIQUE, -- для приглашений
     created_at TEXT DEFAULT (datetime('now')),
     updated_at TEXT DEFAULT (datetime('now'))
