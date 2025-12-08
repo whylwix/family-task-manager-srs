@@ -1,0 +1,68 @@
+@startuml
+left to right direction
+
+' Акторы
+actor "Семейный администратор" as Admin
+actor "Член семьи" as Member
+actor "Система" as System
+
+rectangle "Семейный менеджер задач" {
+  ' Управление семьей
+  usecase "Создать семью" as UC1
+  usecase "Пригласить члена семьи" as UC2
+  usecase "Удалить члена семьи" as UC3
+  
+  ' Управление задачами
+  usecase "Создать задачу" as UC4
+  usecase "Редактировать задачу" as UC5
+  usecase "Удалить задачу" as UC6
+  usecase "Делегировать задачу" as UC7
+  
+  ' Выполнение задач
+  usecase "Отметить задачу выполненной" as UC8
+  usecase "Вернуть задачу в работу" as UC9
+  
+  ' Просмотр и фильтрация
+  usecase "Просмотреть задачи семьи" as UC10
+  usecase "Фильтровать задачи" as UC11
+  usecase "Просмотреть статистику" as UC12
+  
+  ' Управление категориями
+  usecase "Создать категорию" as UC13
+  usecase "Удалить категорию" as UC14
+  
+  ' Автоматические действия
+  usecase "Отправить напоминание" as UC15
+  usecase "Обновить статистику" as UC16
+}
+
+' Связи акторов с use cases
+Admin --> UC1
+Admin --> UC2
+Admin --> UC3
+Admin --> UC4
+Admin --> UC5
+Admin --> UC6
+Admin --> UC13
+Admin --> UC14
+
+Member --> UC4
+Member --> UC5
+Member --> UC6
+Member --> UC7
+Member --> UC8
+Member --> UC9
+Member --> UC10
+Member --> UC11
+Member --> UC12
+
+System --> UC15
+System --> UC16
+
+' Include/Extend связи
+UC11 .> UC10 : extend
+UC12 .> UC10 : extend
+UC2 ..> UC15 : include <<система отправляет приглашение>>
+UC4 ..> UC15 : include <<система отправляет уведомление>>
+
+@enduml
