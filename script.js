@@ -205,3 +205,49 @@ function filterTasks(filter) {
     // Здесь будет логика фильтрации (можно расширить)
     updateTaskList();
 }
+// Расширенная фильтрация задач
+function filterTasks(filterType) {
+    const taskList = document.getElementById('taskList');
+    const buttons = document.querySelectorAll('.filter-btn');
+    
+    // Активация кнопки
+    buttons.forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    
+    // Очистка списка
+    taskList.innerHTML = '';
+    
+    // Фильтрация
+    let filteredTasks = tasks;
+    switch(filterType) {
+        case 'pending':
+            filteredTasks = tasks.filter(task => !task.completed);
+            break;
+        case 'completed':
+            filteredTasks = tasks.filter(task => task.completed);
+            break;
+    }
+    
+    // Отображение отфильтрованных задач
+    filteredTasks.forEach(task => {
+        const li = document.createElement('li');
+        li.className = task.completed ? 'completed' : '';
+        li.innerHTML = `
+            <div class="task-content">
+                <input type="checkbox" ${task.completed ? 'checked' : ''} 
+                       onchange="toggleTask(${task.id})">
+                <span>${task.text}</span>
+                <span class="assignee-badge" style="background-color: ${getMemberColor(task.assigneeId)}">
+                    ${getMemberName(task.assigneeId)}
+                </span>
+            </div>
+            <button class="delete-btn" onclick="deleteTask(${task.id})">
+                <i class="fas fa-trash"></i>
+            </button>
+        `;
+        taskList.appendChild(li);
+    });
+    
+    // Обновление статистики
+    updateStats();
+}
