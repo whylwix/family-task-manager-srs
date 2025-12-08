@@ -1,4 +1,4 @@
--- 1. Добавляем семью
+-- 1. Добавляем семью 
 INSERT INTO Families (family_name, family_code) VALUES 
 ('Семья Ивановых', 'IVANOV2024'),
 ('Семья Петровых', 'PETROV2024');
