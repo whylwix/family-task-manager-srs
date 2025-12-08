@@ -97,3 +97,111 @@ function getMemberColor(id) {
     const member = members.find(m => m.id === id);
     return member ? member.color : '#95a5a6';
 }
+// Управление членами семьи
+
+// Обновление списка членов семьи
+function updateMembersList() {
+    const membersList = document.getElementById('membersList');
+    const assigneeSelect = document.getElementById('taskAssignee');
+    
+    membersList.innerHTML = '';
+    assigneeSelect.innerHTML = '<option value="">Выберите ответственного</option>';
+    
+    members.forEach(member => {
+        // Отображение в секции "Члены семьи"
+        const memberDiv = document.createElement('div');
+        memberDiv.className = 'member-card';
+        memberDiv.innerHTML = `
+            <div class="member-avatar" style="background-color: ${member.color}">
+                ${member.name.charAt(0)}
+            </div>
+            <span>${member.name}</span>
+            <button class="btn-small" onclick="removeMember(${member.id})">
+                <i class="fas fa-times"></i>
+            </button>
+        `;
+        membersList.appendChild(memberDiv);
+        
+        // Добавление в выпадающий список
+        const option = document.createElement('option');
+        option.value = member.id;
+        option.textContent = member.name;
+        assigneeSelect.appendChild(option);
+    });
+    
+    // Сохраняем в localStorage
+    localStorage.setItem('familyMembers', JSON.stringify(members));
+}
+
+// Добавление нового члена семьи
+function addMember() {
+    const name = prompt('Введите имя нового члена семьи:');
+    if (!name || name.trim() === '') return;
+    
+    const colors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6', '#1abc9c'];
+    const newMember = {
+        id: Date.now(),
+        name: name.trim(),
+        color: colors[members.length % colors.length]
+    };
+    
+    members.push(newMember);
+    updateMembersList();
+}
+
+// Удаление члена семьи
+function removeMember(id) {
+    if (!confirm('Удалить этого члена семьи?')) return;
+    
+    // Проверяем, есть ли задачи у этого члена
+    const hasTasks = tasks.some(task => task.assigneeId === id);
+    if (hasTasks) {
+        alert('Нельзя удалить члена семьи, у которого есть задачи!');
+        return;
+    }
+    
+    members = members.filter(member => member.id !== id);
+    updateMembersList();
+}
+
+// Переключение статуса задачи
+function toggleTask(taskId) {
+    const task = tasks.find(t => t.id === taskId);
+    if (task) {
+        task.completed = !task.completed;
+        saveTasks();
+        updateTaskList();
+        updateStats();
+    }
+}
+
+// Удаление задачи
+function deleteTask(taskId) {
+    if (!confirm('Удалить эту задачу?')) return;
+    
+    tasks = tasks.filter(t => t.id !== taskId);
+    saveTasks();
+    updateTaskList();
+    updateStats();
+}
+
+// Обновление статистики
+function updateStats() {
+    const total = tasks.length;
+    const completed = tasks.filter(t => t.completed).length;
+    const pending = total - completed;
+    
+    document.getElementById('totalTasks').textContent = total;
+    document.getElementById('completedTasks').textContent = completed;
+    document.getElementById('pendingTasks').textContent = pending;
+}
+
+// Фильтрация задач
+function filterTasks(filter) {
+    const buttons = document.querySelectorAll('.filter-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    
+    // Здесь будет логика фильтрации (можно расширить)
+    updateTaskList();
+}
