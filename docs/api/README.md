@@ -3,7 +3,7 @@
 
 ## 📡 URL Mock сервера
 ```
-https://eadd2ff6-6c48-452b-933a-81d3c119cbe6.mock.pstmn.io)
+https://eadd2ff6-6c48-452b-933a-81d3c119cbe6.mock.pstmn.io
 ```
 
 ## 🚀 Быстрый старт
