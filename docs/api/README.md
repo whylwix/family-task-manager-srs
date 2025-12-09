@@ -1,90 +1,90 @@
-# API Testing Documentation
+# 🧪 Документация по тестированию API
 ## Family Task Manager API
 
-## Mock Server URL
+## 📡 URL Mock сервера
 ```
-https://your-mock-id.mock.pstmn.io
+https://eadd2ff6-6c48-452b-933a-81d3c119cbe6.mock.pstmn.io)
 ```
 
-## Quick Start
+## 🚀 Быстрый старт
 
-### 1. Import Collection
-1. Open Postman
-2. Click **Import** → **Upload Files**
-3. Select: `postman/Family_Task_Manager_API_Collection.json`
+### 1. Импорт коллекции
+1. Откройте Postman
+2. Нажмите **Import** → **Upload Files**
+3. Выберите: `postman/Family_Task_Manager_API_Collection.json`
 
-### 2. Import Environment  
-1. In Postman, go to **Environments**
-2. Click **Import**
-3. Select: `postman/Family_Task_Manager_Local_Environment.json`
+### 2. Импорт окружения  
+1. В Postman перейдите в **Environments**
+2. Нажмите **Import**
+3. Выберите: `postman/Family_Task_Manager_Local_Environment.json`
 
-### 3. Set Mock Server URL
-1. Select environment **"Family Task Manager Local"**
-2. Click **Edit**
-3. Set `base_url` to your Mock Server URL
-4. Save
+### 3. Настройка URL Mock сервера
+1. Выберите окружение **"Family Task Manager Local"**
+2. Нажмите **Edit**
+3. Установите `base_url` на URL вашего Mock сервера
+4. Сохраните
 
-### 4. Run Tests
-1. Open **"Login User"** request
-2. Click **Send**
-3. Check **Test Results** tab
+### 4. Запуск тестов
+1. Откройте запрос **"Login User"**
+2. Нажмите **Send**
+3. Проверьте вкладку **Test Results**
 
-## Available Endpoints
+## Доступные эндпоинты
 
-### Authentication
-| Method | Endpoint | Description |
+### Аутентификация
+| Метод | Эндпоинт | Описание |
 |--------|----------|-------------|
-| POST | `/auth/register` | Register new user |
-| POST | `/auth/login` | User login |
+| POST | `/auth/register` | Регистрация нового пользователя |
+| POST | `/auth/login` | Вход пользователя |
 
-### Family Management  
-| Method | Endpoint | Description |
+### Управление семьей  
+| Метод | Эндпоинт | Описание |
 |--------|----------|-------------|
-| POST | `/api/families` | Create new family |
-| GET | `/api/families/{id}/members` | Get family members |
-| POST | `/api/families/{id}/invite` | Invite family member |
+| POST | `/api/families` | Создание новой семьи |
+| GET | `/api/families/{id}/members` | Получение членов семьи |
+| POST | `/api/families/{id}/invite` | Приглашение члена семьи |
 
-### Tasks Management
-| Method | Endpoint | Description |
+### Управление задачами
+| Метод | Эндпоинт | Описание |
 |--------|----------|-------------|
-| POST | `/api/families/{id}/tasks` | Create family task |
-| GET | `/api/families/{id}/tasks` | Get family tasks |
-| PATCH | `/api/tasks/{id}/complete` | Mark task as completed |
-| GET | `/api/families/{id}/stats` | Get task statistics |
+| POST | `/api/families/{id}/tasks` | Создание семейной задачи |
+| GET | `/api/families/{id}/tasks` | Получение задач семьи |
+| PATCH | `/api/tasks/{id}/complete` | Отметка задачи выполненной |
+| GET | `/api/families/{id}/stats` | Получение статистики задач |
 
-### Categories Management
-| Method | Endpoint | Description |
+### Управление категориями
+| Метод | Эндпоинт | Описание |
 |--------|----------|-------------|
-| GET | `/api/families/{id}/categories` | Get categories |
-| POST | `/api/families/{id}/categories` | Create category |
+| GET | `/api/families/{id}/categories` | Получение категорий |
+| POST | `/api/families/{id}/categories` | Создание категории |
 
-## Test Scenarios
+## Тестовые сценарии
 
-### Scenario 1: User Registration & Login
+### Сценарий 1: Регистрация и вход пользователя
 ```
-1. Register User → Get 201 Created
-2. Login User → Get 200 OK + auth_token
-```
-
-### Scenario 2: Family Creation & Task Management  
-```
-1. Login User → Save token
-2. Create Family → Save family_id  
-3. Create Family Task → Save task_id
-4. Complete Task → Verify completion
-5. Get Statistics → Verify points
+1. Register User → Получаем 201 Created
+2. Login User → Получаем 200 OK + auth_token
 ```
 
-### Scenario 3: Error Handling
+### Сценарий 2: Создание семьи и управление задачами  
 ```
-1. Login with wrong credentials → Get 401
-2. Create task without title → Get 400
-3. Access without token → Get 401
+1. Login User → Сохраняем токен
+2. Create Family → Сохраняем family_id  
+3. Create Family Task → Сохраняем task_id
+4. Complete Task → Проверяем завершение
+5. Get Statistics → Проверяем баллы
 ```
 
-## Request Examples
+### Сценарий 3: Обработка ошибок
+```
+1. Вход с неверными данными → Получаем 401
+2. Создание задачи без названия → Получаем 400
+3. Доступ без токена → Получаем 401
+```
 
-### Login Request
+## 📝 Примеры запросов
+
+### Запрос на вход
 ```json
 POST {{base_url}}/auth/login
 {
@@ -93,7 +93,7 @@ POST {{base_url}}/auth/login
 }
 ```
 
-### Create Family Task Request
+### Запрос на создание семейной задачи
 ```json
 POST {{base_url}}/api/families/{{family_id}}/tasks
 Authorization: Bearer {{auth_token}}
@@ -107,65 +107,46 @@ Authorization: Bearer {{auth_token}}
 }
 ```
 
-## Test Examples
+## Примеры тестов
 
-### Login Tests
+### Тесты для входа
 ```javascript
-pm.test("Status code is 200", function() {
+pm.test("Статус код 200", function() {
     pm.response.to.have.status(200);
 });
 
-pm.test("Response has auth token", function() {
+pm.test("Ответ содержит токен авторизации", function() {
     var jsonData = pm.response.json();
     pm.expect(jsonData.token).to.not.be.undefined;
 });
 ```
 
-### Task Creation Tests  
+### Тесты для создания задачи  
 ```javascript
-pm.test("Task created - status 201", function() {
+pm.test("Задача создана - статус 201", function() {
     pm.response.to.have.status(201);
 });
 
-pm.test("Save task ID", function() {
+pm.test("Сохраняем ID задачи", function() {
     var jsonData = pm.response.json();
     pm.environment.set("task_id", jsonData.task_id);
 });
 ```
 
-## Files Structure
+## Структура файлов
 
 ```
 docs/api/
-├── README.md                    # This file
+├── README.md                    # Этот файл
 ├── postman/
 │   ├── Family_Task_Manager_API_Collection.json
 │   └── Family_Task_Manager_Local_Environment.json
-└── screenshots/                 # Optional: Postman screenshots
+└── screenshots/                 # Опционально: скриншоты Postman
 ```
 
-## Related Documentation
+## Связанная документация
 
-- [Use Cases](../requirements/use-cases.md)
-- [ER Diagram](../database/er_diagram.png)  
-- [Sequence Diagrams](../behavior/sequence/)
+- [Сценарии использования (Use Cases)](../requirements/use-cases.md)
+- [ER диаграмма](../database/er_diagram.png)  
+- [Диаграммы последовательности](../behavior/sequence/)
 
----
-
-## Troubleshooting
-
-### Problem: "Invalid URL"
-**Solution:** Check that `base_url` is set in environment variables.
-
-### Problem: "401 Unauthorized"
-**Solution:** Run Login request first to get valid `auth_token`.
-
-### Problem: Mock Server returns wrong example
-**Solution:** Check that request URL and parameters match Example conditions.
-
-### Problem: Tests failing
-**Solution:** Check console logs in Postman (View → Show Postman Console).
-
----
-
-**Postman Version:** 10.20+
