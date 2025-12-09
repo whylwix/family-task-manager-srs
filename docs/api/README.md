@@ -144,9 +144,4 @@ docs/api/
 └── screenshots/                 # Опционально: скриншоты Postman
 ```
 
-## Связанная документация
-
-- [Сценарии использования (Use Cases)](../requirements/use-cases.md)
-- [ER диаграмма](../database/er_diagram.png)  
-- [Диаграммы последовательности](../behavior/sequence/)
 
