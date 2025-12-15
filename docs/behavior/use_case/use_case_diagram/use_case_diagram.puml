@@ -36,33 +36,33 @@ rectangle "Семейный менеджер задач" {
   usecase "Обновить статистику" as UC16
 }
 
-' Связи акторов с use cases
-Admin --> UC1
-Admin --> UC2
-Admin --> UC3
-Admin --> UC4
-Admin --> UC5
-Admin --> UC6
-Admin --> UC13
-Admin --> UC14
+' Основные связи акторов с use cases (группировка по линиям)
+Admin -down-> UC1
+Admin -down-> UC2
+Admin -down-> UC3
+Admin -down-> UC4
+Admin -down-> UC5
+Admin -down-> UC6
+Admin -down-> UC13
+Admin -down-> UC14
 
-Member --> UC4
-Member --> UC5
-Member --> UC6
-Member --> UC7
-Member --> UC8
-Member --> UC9
-Member --> UC10
-Member --> UC11
-Member --> UC12
+Member -down-> UC4
+Member -down-> UC5
+Member -down-> UC6
+Member -down-> UC7
+Member -down-> UC8
+Member -down-> UC9
+Member -down-> UC10
+Member -down-> UC11
+Member -down-> UC12
 
-System --> UC15
-System --> UC16
+System -down-> UC15
+System -down-> UC16
 
-' Include/Extend связи
-UC11 .> UC10 : extend
-UC12 .> UC10 : extend
-UC2 ..> UC15 : include <<система отправляет приглашение>>
-UC4 ..> UC15 : include <<система отправляет уведомление>>
+' Упрощенные связи между use cases
+UC10 <-- UC11 : extends
+UC10 <-- UC12 : extends
+UC2 --> UC15 : includes
+UC4 --> UC15 : includes
 
 @enduml
