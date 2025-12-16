@@ -1,0 +1,423 @@
+{
+	"id": "66f152d2-77c4-4230-8d9c-a9aec7577d54",
+	"name": "Family Task Manager API",
+	"timestamp": "2025-12-16T13:19:42.300Z",
+	"collection_id": "50665760-476faaf7-cc74-47fb-9cbc-e6c42b75f886",
+	"folder_id": 0,
+	"environment_id": "50665760-9cdc22e1-7ebf-4370-a4d8-3a801e7ecd91",
+	"totalPass": 23,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2025-12-16T13:19:29.778Z",
+	"totalFail": 1,
+	"results": [
+		{
+			"id": "835edf0d-9876-47c8-94e7-67ef9f5b0d7e",
+			"name": "Register User",
+			"url": "https://1580142a-22aa-4ea6-9889-f410b2162390.mock.pstmn.io/auth/register",
+			"time": 1505,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status code is valid": true,
+				"Successful response has correct structure": true,
+				"Error responses have correct format": true,
+				"Response time is acceptable": false,
+				"Response has JSON content type": true
+			},
+			"testPassFailCounts": {
+				"Status code is valid": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Successful response has correct structure": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Error responses have correct format": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response time is acceptable": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Response has JSON content type": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				1505
+			],
+			"allTests": [
+				{
+					"Status code is valid": true,
+					"Successful response has correct structure": true,
+					"Error responses have correct format": true,
+					"Response time is acceptable": false,
+					"Response has JSON content type": true
+				}
+			]
+		},
+		{
+			"id": "3fdddad9-9a58-4dab-afa0-748ed2dd43d4",
+			"name": "Login User",
+			"url": "https://1580142a-22aa-4ea6-9889-f410b2162390.mock.pstmn.io/auth/login",
+			"time": 930,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response is JSON": true,
+				"Response has correct structure": true,
+				"Save authentication data to environment": true,
+				"Response time is less than 500ms": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response is JSON": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has correct structure": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Save authentication data to environment": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response time is less than 500ms": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				930
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response is JSON": true,
+					"Response has correct structure": true,
+					"Save authentication data to environment": true,
+					"Response time is less than 500ms": true
+				}
+			]
+		},
+		{
+			"id": "4ea09d76-ecea-4d42-aed6-14d8db1292e9",
+			"name": "Create Family",
+			"url": "https://1580142a-22aa-4ea6-9889-f410b2162390.mock.pstmn.io/api/families",
+			"time": 880,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Family creation response check": true,
+				"Response structure validation": true,
+				"Authorization header is present": true,
+				"Request data was valid": true,
+				"Ensure family_id is saved": true
+			},
+			"testPassFailCounts": {
+				"Family creation response check": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response structure validation": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Authorization header is present": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Request data was valid": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Ensure family_id is saved": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				880
+			],
+			"allTests": [
+				{
+					"Family creation response check": true,
+					"Response structure validation": true,
+					"Authorization header is present": true,
+					"Request data was valid": true,
+					"Ensure family_id is saved": true
+				}
+			]
+		},
+		{
+			"id": "7d345452-6cc2-4554-a15e-5f9291d4cd32",
+			"name": "Get Family Members",
+			"url": "https://1580142a-22aa-4ea6-9889-f410b2162390.mock.pstmn.io/api/families/1/members?role=admin&active=true&has_tasks=true",
+			"time": 932,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				932
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "705fd560-568a-4f55-b2c5-a16ce86be37d",
+			"name": "Invite Family Member",
+			"url": "https://1580142a-22aa-4ea6-9889-f410b2162390.mock.pstmn.io/api/families/1/invite",
+			"time": 941,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				941
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "8b01d672-c296-43b4-8501-f796ff26152e",
+			"name": "Create Family Task",
+			"url": "https://1580142a-22aa-4ea6-9889-f410b2162390.mock.pstmn.io/api/families/1/tasks",
+			"time": 1082,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Task creation status check": true,
+				"Task response structure": true,
+				"Save task ID for later use": true,
+				"Request data validation": true,
+				"Authorization check": true,
+				"Family ID in URL": true
+			},
+			"testPassFailCounts": {
+				"Task creation status check": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Task response structure": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Save task ID for later use": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Request data validation": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Authorization check": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Family ID in URL": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				1082
+			],
+			"allTests": [
+				{
+					"Task creation status check": true,
+					"Task response structure": true,
+					"Save task ID for later use": true,
+					"Request data validation": true,
+					"Authorization check": true,
+					"Family ID in URL": true
+				}
+			]
+		},
+		{
+			"id": "23f9aaa8-36dc-4270-a96b-bf3e4b3e7131",
+			"name": "Get Family Tasks",
+			"url": "https://1580142a-22aa-4ea6-9889-f410b2162390.mock.pstmn.io/api/families/1/tasks?status=pending&category_id=1&assignee_id=2&due_before=2025-12-31&due_after=2026-01-01&limit=10&offset=0&sort_by=due_date&sort_order=asc&priority=high",
+			"time": 1106,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				1106
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "a3c66b79-c6bc-4e76-bc3f-8f4b2b87dbf4",
+			"name": "Complete Task",
+			"url": "https://1580142a-22aa-4ea6-9889-f410b2162390.mock.pstmn.io/api/tasks/5/complete?validate=true",
+			"time": 969,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Task completed - status 200": true,
+				"Completion response structure": true,
+				"Task status updated": true
+			},
+			"testPassFailCounts": {
+				"Task completed - status 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Completion response structure": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Task status updated": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				969
+			],
+			"allTests": [
+				{
+					"Task completed - status 200": true,
+					"Completion response structure": true,
+					"Task status updated": true
+				}
+			]
+		},
+		{
+			"id": "8a505cae-14a2-4cdb-9155-459e0e582416",
+			"name": "Get Task Statistics",
+			"url": "https://1580142a-22aa-4ea6-9889-f410b2162390.mock.pstmn.io/api/families/1/stats?period=weekly&start_date=\t2025-01-01&end_date=\t2025-01-31&member_id=2&category_id=1&include_charts=true&format=json",
+			"time": 880,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				880
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "5e55b6a3-d242-4e9e-99cf-9b87039cf263",
+			"name": "Get Categories",
+			"url": "https://1580142a-22aa-4ea6-9889-f410b2162390.mock.pstmn.io/api/families/1/categories?archived=false&with_stats=true&limit=20&offset=0",
+			"time": 938,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				938
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "25175c46-7bea-42af-9871-a80729272a94",
+			"name": "Create Category",
+			"url": "https://1580142a-22aa-4ea6-9889-f410b2162390.mock.pstmn.io/api/families/1/categories",
+			"time": 938,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				938
+			],
+			"allTests": [
+				{}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 11101,
+	"collection": {
+		"requests": [
+			{
+				"id": "835edf0d-9876-47c8-94e7-67ef9f5b0d7e",
+				"method": "POST"
+			},
+			{
+				"id": "3fdddad9-9a58-4dab-afa0-748ed2dd43d4",
+				"method": "POST"
+			},
+			{
+				"id": "4ea09d76-ecea-4d42-aed6-14d8db1292e9",
+				"method": "POST"
+			},
+			{
+				"id": "7d345452-6cc2-4554-a15e-5f9291d4cd32",
+				"method": "GET"
+			},
+			{
+				"id": "705fd560-568a-4f55-b2c5-a16ce86be37d",
+				"method": "POST"
+			},
+			{
+				"id": "8b01d672-c296-43b4-8501-f796ff26152e",
+				"method": "POST"
+			},
+			{
+				"id": "23f9aaa8-36dc-4270-a96b-bf3e4b3e7131",
+				"method": "GET"
+			},
+			{
+				"id": "a3c66b79-c6bc-4e76-bc3f-8f4b2b87dbf4",
+				"method": "PATCH"
+			},
+			{
+				"id": "8a505cae-14a2-4cdb-9155-459e0e582416",
+				"method": "GET"
+			},
+			{
+				"id": "5e55b6a3-d242-4e9e-99cf-9b87039cf263",
+				"method": "GET"
+			},
+			{
+				"id": "25175c46-7bea-42af-9871-a80729272a94",
+				"method": "POST"
+			}
+		]
+	}
+}
