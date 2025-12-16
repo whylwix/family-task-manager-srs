@@ -1,0 +1,54 @@
+@startuml Create_Family_Task_Sequence
+title Создание семейной задачи
+
+actor "Член семьи" as User
+participant "Интерфейс" as UI
+participant "TaskController" as Controller
+participant "TaskService" as Service
+participant "NotificationService" as Notify
+participant "Database" as DB
+
+User -> UI: Вводит данные задачи\n(название, описание, приоритет, категория, срок)
+activate User
+activate UI
+
+UI -> Controller: POST /api/family/{id}/tasks\n{title, description, priority, category_id, due_date, assignee_id}
+activate Controller
+
+Controller -> Service: createFamilyTask(familyId, taskData, userId)
+activate Service
+
+Service -> Service: validateTaskData(taskData)
+activate Service
+
+alt Данные валидны
+  Service -> DB: INSERT INTO Tasks\n(family_id, title, description, priority, category_id, due_date, created_by, assignee_id, status)
+  activate DB
+  DB -> Service: task_id
+  deactivate DB
+  
+  Service -> Notify: sendTaskAssignedNotification(task_id, assignee_id)
+  activate Notify
+  Notify --> Service: notification_sent
+  deactivate Notify
+  
+  Service -> Controller: SuccessResponse(task_id)
+else Данные невалидны
+  Service -> Controller: ErrorResponse("Неверные данные")
+end
+deactivate Service
+
+alt Успех
+  Controller -> UI: 201 Created\n{task_id, message}
+  UI -> UI: Показать уведомление "Задача создана"
+  UI -> UI: Обновить список семейных задач
+  UI -> User: Отобразить новую задачу
+else Ошибка
+  Controller -> UI: 400 Bad Request\n{error_message}
+  UI -> User: Показать ошибку валидации
+end
+deactivate Controller
+deactivate UI
+deactivate User
+
+@enduml
